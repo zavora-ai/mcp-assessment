@@ -1,0 +1,172 @@
+server_id = "mcp_assessment"
+display_name = "Assessment Platform"
+version = "1.0.0"
+domain = "education"
+sdk_version = "0.1.0"
+risk_level = "medium"
+writes_allowed = "gated"
+transports = ["stdio"]
+credentials = []
+governance_gates = []
+environments = ["development", "staging", "production"]
+
+[[tools]]
+name = "add_standard"
+description = "Add a learning standard (curriculum target)"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "list_standards"
+description = "List learning standards by subject/framework"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "items_for_standard"
+description = "List items aligned to a standard (coverage)"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "create_rubric"
+description = "Create a rubric with weighted criteria"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "get_rubric"
+description = "Get a rubric by id"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "create_item"
+description = "Author an item (question) of any supported type"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "get_item"
+description = "Get an item by id (instructor-facing, includes key)"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "list_items"
+description = "Search the item bank by subject/difficulty/standard"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "create_assessment"
+description = "Create an assessment from explicit item ids"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "generate_assessment"
+description = "Generate an assessment from a difficulty blueprint"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "get_assessment"
+description = "Get an assessment by id"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "list_assessments"
+description = "List assessments by subject/status"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "set_assessment_status"
+description = "Set status; publishing makes it live and is gated"
+risk_class = "internal_write"
+requires_approval = true
+credential_bindings = []
+
+[[tools]]
+name = "assessment_blueprint"
+description = "Blueprint summary: counts by difficulty/cognitive + standards"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "start_attempt"
+description = "Start a learner attempt on a published assessment"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "submit_attempt"
+description = "Submit answers and auto-grade objective items (records result)"
+risk_class = "external_write"
+requires_approval = true
+credential_bindings = []
+
+[[tools]]
+name = "score_rubric_item"
+description = "Score a rubric/essay item on an attempt"
+risk_class = "internal_write"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "get_attempt"
+description = "Get an attempt (responses, score, pass/fail)"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "list_attempts"
+description = "List attempts for an assessment"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "learner_attempts"
+description = "List a learner's attempts"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "item_analysis"
+description = "Item p-value/discrimination across graded attempts"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "standard_mastery"
+description = "Per-standard mastery for a learner"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
+
+[[tools]]
+name = "audit_log"
+description = "Recent platform audit-trail entries"
+risk_class = "read_only"
+requires_approval = false
+credential_bindings = []
