@@ -95,7 +95,7 @@ fn dfifty() -> usize { 50 }
 #[derive(Clone)]
 pub struct AssessmentServer { pub store: Arc<AssessmentStore> }
 
-#[tool_router(server_handler)]
+#[tool_router]
 impl AssessmentServer {
     // standards / curriculum
     #[tool(description = "Add a learning standard (curriculum mapping target), e.g. a CCSS/NGSS code.")]
@@ -249,4 +249,11 @@ impl HealthCheck for AssessmentServer {
     async fn check_health(&self) -> HealthStatus {
         HealthStatus { healthy: true, message: Some("operational".into()), latency_ms: Some(1) }
     }
+}
+
+adk_mcp_sdk::mcp_2026_server! {
+    server: AssessmentServer,
+    task_tools: ["generate_assessment"],
+    approval_tools: ["set_assessment_status", "submit_attempt"],
+    cache_ttl_ms: 60_000,
 }
