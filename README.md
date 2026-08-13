@@ -98,7 +98,7 @@ cd mcp-assessment && cargo build --release
 ```toml
 server_id = "mcp_assessment"
 display_name = "Assessment Platform"
-version = "1.0.0"
+version = "1.1.0"
 domain = "education"
 risk_level = "medium"
 writes_allowed = "gated"
