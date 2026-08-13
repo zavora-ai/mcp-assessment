@@ -1,172 +1,172 @@
 server_id = "mcp_assessment"
-display_name = "Assessment Platform"
-version = "1.0.0"
+display_name = "Assessment"
+version = "1.1.0"
 domain = "education"
-sdk_version = "0.1.0"
-risk_level = "medium"
+sdk_version = "0.2.0"
+risk_level = "high"
 writes_allowed = "gated"
 transports = ["stdio"]
 credentials = []
-governance_gates = []
+governance_gates = ["mrtr_approval"]
 environments = ["development", "staging", "production"]
 
 [[tools]]
 name = "add_standard"
-description = "Add a learning standard (curriculum target)"
+description = "Add a learning standard (curriculum mapping target), e.g. a CCSS/NGSS code."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "list_standards"
-description = "List learning standards by subject/framework"
+description = "List learning standards, optionally by subject/framework."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "items_for_standard"
-description = "List items aligned to a standard (coverage)"
+description = "List items aligned to a standard — curriculum coverage for a standard."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "create_rubric"
-description = "Create a rubric with weighted criteria"
+description = "Create a rubric with weighted criteria (for essay/constructed-response scoring)."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "get_rubric"
-description = "Get a rubric by id"
+description = "Get a rubric by id."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "create_item"
-description = "Author an item (question) of any supported type"
+description = "Author an item (question). Types: multiple_choice / multiple_select (options + answer_key indices), true_false, short_answer, numeric (with tolerance), essay (needs rubric_id)."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "get_item"
-description = "Get an item by id (instructor-facing, includes key)"
+description = "Get an item by id (includes answer key — instructor-facing)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "list_items"
-description = "Search the item bank by subject/difficulty/standard"
+description = "Search the item bank by subject, difficulty, and/or standard."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "create_assessment"
-description = "Create an assessment from explicit item ids"
+description = "Create an assessment from an explicit ordered list of item ids."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "generate_assessment"
-description = "Generate an assessment from a difficulty blueprint"
+description = "Generate an assessment from a blueprint (difficulty → count) drawing from the item bank, optionally constrained to standards. Powers the Quiz Generator."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "get_assessment"
-description = "Get an assessment by id"
+description = "Get an assessment by id."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "list_assessments"
-description = "List assessments by subject/status"
+description = "List assessments by subject/status."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "set_assessment_status"
-description = "Set status; publishing makes it live and is gated"
+description = "Set assessment status: draft/published/archived. Publishing makes it live for learner attempts and is gated."
 risk_class = "internal_write"
 requires_approval = true
 credential_bindings = []
 
 [[tools]]
 name = "assessment_blueprint"
-description = "Blueprint summary: counts by difficulty/cognitive + standards"
+description = "Blueprint summary of an assessment: item counts by difficulty and cognitive level, plus standards covered. For Instructor Copilot / Curriculum Mapping."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "start_attempt"
-description = "Start a learner attempt on a published assessment"
+description = "Start a learner attempt on a published assessment."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "submit_attempt"
-description = "Submit answers and auto-grade objective items (records result)"
+description = "Submit attempt answers; auto-grades objective items. Essay/rubric items remain for score_rubric_item. Records a result — gated."
 risk_class = "external_write"
 requires_approval = true
 credential_bindings = []
 
 [[tools]]
 name = "score_rubric_item"
-description = "Score a rubric/essay item on an attempt"
+description = "Score a rubric/essay item on an attempt with per-criterion scores (clamped to each criterion max). Powers the Rubric Grading Assistant. Finalizes the attempt when nothing remains ungraded."
 risk_class = "internal_write"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "get_attempt"
-description = "Get an attempt (responses, score, pass/fail)"
+description = "Get an attempt by id (responses, score, percent, pass/fail)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "list_attempts"
-description = "List attempts for an assessment"
+description = "List attempts for an assessment."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "learner_attempts"
-description = "List a learner's attempts"
+description = "List a learner's attempts across assessments."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "item_analysis"
-description = "Item p-value/discrimination across graded attempts"
+description = "Item analysis across graded attempts: per-item p-value (difficulty) and discrimination (top vs bottom third), with quality flags. For Instructor Copilot."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "standard_mastery"
-description = "Per-standard mastery for a learner"
+description = "Standard mastery for a learner: % of points earned per aligned standard across graded attempts, with level. Powers the Adaptive Tutor."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
 
 [[tools]]
 name = "audit_log"
-description = "Recent platform audit-trail entries"
+description = "Recent platform audit-trail entries (most recent first)."
 risk_class = "read_only"
 requires_approval = false
 credential_bindings = []
